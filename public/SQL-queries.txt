@@ -1,0 +1,49 @@
+SQL queries:
+
+1
+-------------------------------------
+SELECT DISTINCT categories.name
+FROM categories, products 
+WHERE 
+categories.id = products.category_id 
+AND products.id IN (9, 14, 6, 7, 2)
+-------------------------------------
+
+2
+--------------------------------------------------------------------------
+SELECT 
+products.id AS productId, products.name AS productName,
+categories.id AS categoryId, categories.name AS categoryName,
+subcategories.id AS subcategoryId, subcategories.name AS subcategoryName
+FROM 
+products LEFT JOIN categories 
+ON ( products.category_id = categories.id )
+LEFT JOIN subcategories 
+ON ( products.subcategory_id = subcategories.id )
+WHERE 
+products.category_id = 2 
+ORDER BY products.subcategory_id
+--------------------------------------------------------------------------
+
+
+3 
+-------------------------------------
+SELECT COUNT(DISTINCT
+products.name)
+FROM 
+products
+WHERE 
+products.category_id IN (2,3,4)
+GROUP BY products.category_id
+-------------------------------------
+
+
+4
+-------------------------------------
+SELECT COUNT(products.name)
+FROM 
+products
+WHERE 
+products.category_id IN (3, 4, 5)
+GROUP BY products.category_id, products.name
+-------------------------------------
