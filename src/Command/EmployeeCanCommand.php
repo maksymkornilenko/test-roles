@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Specialties;
+use App\Entity\versionOOP\UserRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -42,13 +43,20 @@ class EmployeeCanCommand extends Command
         $arg2 = $input->getArgument('arg2');
 
         if ($arg1 && $arg2) {
-            $checkSkill = $this->em->getRepository(Specialties::class)->checkSkill($arg1, $arg2);
-
-            if (!empty($checkSkill)) {
+//            $checkSkill = $this->em->getRepository(Specialties::class)->checkSkill($arg1, $arg2);
+//            if (!empty($checkSkill)) {
+//                $io->success('true');
+//            } else {
+//                $io->error('false');
+//            }
+            $model= new UserRole((string) $arg1, (string) $arg2);
+            if ($model->show()==true){
                 $io->success('true');
-            } else {
+            }else{
                 $io->error('false');
+
             }
+
         }
         return 0;
     }

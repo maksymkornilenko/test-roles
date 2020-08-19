@@ -2,7 +2,9 @@
 
 namespace App\Command;
 
+use App\Entity\Programmer;
 use App\Entity\Specialties;
+use App\Entity\versionOOP\UserRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -37,12 +39,13 @@ class CompanyEmployeeCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
         if ($arg1) {
-            $res = $this->em->getRepository(Specialties::class)->findOneBySpeciality($arg1);
-            $str = '';
-            foreach ($res->skillSpecialties as $skillSpecialty) {
-                $str .= $skillSpecialty->skill->skill . PHP_EOL;
-            }
-            $io->success(sprintf('You may:' . PHP_EOL . '%s', $str));
+            $model= new UserRole((string) $arg1);
+//            $res = $this->em->getRepository(Specialties::class)->findOneBySpeciality($arg1);
+//            $str = '';
+//            foreach ($res->skillSpecialties as $skillSpecialty) {
+//                $str .= $skillSpecialty->skill->skill . PHP_EOL;
+//            }
+            $io->success(sprintf('You may:' . PHP_EOL . '%s', $model->show()));
         }
         return 0;
     }
